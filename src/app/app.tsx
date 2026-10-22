@@ -3,6 +3,7 @@ import { CalendarDays, Check, Sparkles, Users } from 'lucide-react'
 import { ThemeToggle } from '@/components/common/theme-toggle'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsPanel, TabsTab } from '@/components/ui/tabs'
+import { TreatmentPage } from '@/features/treatments'
 
 const views = [
   {
@@ -63,6 +64,7 @@ export function App() {
       </header>
 
       <main className="flex flex-col gap-24 pt-10 pb-24 sm:gap-32 sm:pt-16">
+        <TreatmentPage />
         <Tabs defaultValue="project">
           <TabsList aria-label="What to read about">
             {views.map(({ value, label }) => (
