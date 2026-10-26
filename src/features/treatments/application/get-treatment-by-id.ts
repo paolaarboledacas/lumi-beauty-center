@@ -1,12 +1,9 @@
-// application/get-treatment-by-id.ts
-export function getTreatmentById(repository: TreatmentRepository, id: string) {
-  return repository.findById(id)
-}
+import type { Treatment } from '../domain/treatment'
+import type { TreatmentRepository } from '../domain/treatment-repository'
 
-// ui/hooks/use-treatment.ts
-export function useTreatment(id: string) {
-  return useQuery({
-    queryKey: ['treatments', id],
-    queryFn: () => getTreatmentById(treatmentRepository, id),
-  })
+export async function getTreatmentById(
+  repository: TreatmentRepository,
+  id: string,
+): Promise<Treatment | null> {
+  return repository.findById(id)
 }

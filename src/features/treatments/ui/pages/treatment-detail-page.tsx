@@ -1,9 +1,9 @@
 import { Link, useParams } from 'react-router'
 import { useTreatment } from '../hooks/use-treatments'
 
-export const TreatmentDetailPage = () => {
-  const { id } = useParams()
-  const { data: treatment, isLoading } = useTreatment(id!)
+export function TreatmentDetailPage() {
+  const { id = '' } = useParams()
+  const { data: treatment, isLoading } = useTreatment(id)
 
   if (isLoading) return <p className="p-6">Loading...</p>
   if (!treatment) return <p className="p-6">Treatment not found.</p>

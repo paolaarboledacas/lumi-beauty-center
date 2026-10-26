@@ -17,7 +17,10 @@ export function AppLayout() {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                cn('rounded-md px-3 py-2 text-sm font-medium hover:bg-sidebar-accent', isActive && 'bg-sidebar-accent text-primary')
+                cn(
+                  'rounded-md px-3 py-2 text-sm font-medium hover:bg-sidebar-accent',
+                  isActive && 'bg-sidebar-accent text-primary',
+                )
               }
             >
               {link.label}

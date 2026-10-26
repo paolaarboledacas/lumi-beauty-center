@@ -1,8 +1,4 @@
-﻿export type TreatmentCategory =
-  | 'facial'
-  | 'body'
-  | 'hair-removal'
-  | 'hands-and-feet'
+﻿export type TreatmentCategory = 'facial' | 'body' | 'hair-removal' | 'hands-and-feet'
 
 export interface Treatment {
   id: string
@@ -12,3 +8,4 @@ export interface Treatment {
   durationMinutes: number
   price: number
 }
+export type NewTreatment = Omit<Treatment, 'id'>
