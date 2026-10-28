@@ -1,41 +1,20 @@
-﻿import { useEffect, useState } from 'react'
-import { getTreatments } from '../../application/get-treatments'
-import type { Treatment } from '../../domain/treatment'
-import { inMemoryTreatmentRepository } from '../../infrastructure'
+﻿import { useQuery } from '@tanstack/react-query'
 
-interface UseTreatmentsResult {
-  treatments: Treatment[]
-  isLoading: boolean
-  error: string | null
+import { getTreatmentById } from '../../application/get-treatment-by-id'
+import { getTreatments } from '../../application/get-treatments'
+import { treatmentRepository } from '../../infrastructure'
+
+export function useTreatments() {
+  return useQuery({
+    queryKey: ['treatments'],
+    queryFn: () => getTreatments(treatmentRepository),
+  })
 }
 
-export function useTreatments(): UseTreatmentsResult {
-  const [treatments, setTreatments] = useState<Treatment[]>([])
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    let isCancelled = false
-
-    getTreatments(inMemoryTreatmentRepository)
-      .then((loadedTreatments) => {
-        if (!isCancelled) setTreatments(loadedTreatments)
-      })
-      .catch((cause: unknown) => {
-        if (!isCancelled) {
-          setError(
-            cause instanceof Error ? cause.message : 'No se pudieron cargar los tratamientos.',
-          )
-        }
-      })
-      .finally(() => {
-        if (!isCancelled) setIsLoading(false)
-      })
-
-    return () => {
-      isCancelled = true
-    }
-  }, [])
-
-  return { treatments, isLoading, error }
+export function useTreatment(id: string) {
+  return useQuery({
+    queryKey: ['treatments', id],
+    queryFn: () => getTreatmentById(treatmentRepository, id),
+    enabled: !!id,
+  })
 }

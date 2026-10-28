@@ -1,6 +1,4 @@
-﻿// UI layer: components.
-// A component only shows data it receives through props. It does not fetch
-// anything, which makes it easy to reuse and to test.
+﻿import { Link } from 'react-router'
 
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
@@ -12,14 +10,19 @@ interface TreatmentCardProps {
 
 export function TreatmentCard({ treatment }: TreatmentCardProps) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>{treatment.name}</CardTitle>
-        <CardDescription>
-          {treatment.description} · {treatment.durationMinutes} min · $
-          {treatment.price.toLocaleString('es-CO')}
-        </CardDescription>
-      </CardHeader>
-    </Card>
+    <Link
+      to={`/treatments/${treatment.id}`}
+      className="block rounded-xl transition-transform hover:-translate-y-1"
+    >
+      <Card>
+        <CardHeader>
+          <CardTitle>{treatment.name}</CardTitle>
+          <CardDescription>
+            {treatment.description} · {treatment.durationMinutes} min · $
+            {treatment.price.toLocaleString('es-CO')}
+          </CardDescription>
+        </CardHeader>
+      </Card>
+    </Link>
   )
 }
