@@ -1,9 +1,8 @@
-﻿// trae la función que crea el archivador de localStorage
+﻿// trae la funcion que crea el lugar donde se guardan los tratamientos //
 import { createLocalStorageTreatmentRepository } from './local-storage-treatment-repository'
-// trae los tratamientos de ejemplo (mock) para usarlos como semilla
+// trae los tratamientos de ejemplo para usarlos al inicio //
 import { treatmentsMock } from './treatments.mock'
 
-// aquí se decide QUÉ archivador usa toda la app
-// para cambiar de mock a localStorage solo se cambió esta línea:
-// las páginas, hooks y casos de uso siguen igual porque todos cumplen el mismo contrato
+// aqui se elige donde se guardan los datos de toda la app //
+// si se cambia esta linea las paginas siguen funcionando igual //
 export const treatmentRepository = createLocalStorageTreatmentRepository(treatmentsMock)
