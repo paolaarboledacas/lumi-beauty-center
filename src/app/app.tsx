@@ -7,7 +7,10 @@ import { router } from './router'
 export function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      {' '}
+      //Da acceso al almacenamiento de datos //
+      <RouterProvider router={router} /> // Da acceso a las rutas que se van a crear en el archivo
+      router.tsx//
     </QueryClientProvider>
   )
 }
