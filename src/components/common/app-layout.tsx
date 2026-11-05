@@ -4,7 +4,11 @@ import { cn } from '@/lib/utils'
 
 import { ThemeToggle } from './theme-toggle'
 
-const LINKS = [{ to: '/treatments', label: 'Treatments' }]
+const LINKS = [
+  { to: '/treatments', label: 'Tratamientos' },
+  { to: '/clients', label: 'Clientas' },
+]
+
 
 export function AppLayout() {
   return (
@@ -20,6 +24,7 @@ export function AppLayout() {
                 cn(
                   'rounded-md px-3 py-2 text-sm font-medium hover:bg-sidebar-accent',
                   isActive && 'bg-sidebar-accent text-primary',
+                  
                 )
               }
             >
