@@ -9,7 +9,6 @@ const LINKS = [
   { to: '/clients', label: 'Clientas' },
 ]
 
-
 export function AppLayout() {
   return (
     <div className="min-h-svh md:grid md:grid-cols-[220px_1fr]">
@@ -24,7 +23,6 @@ export function AppLayout() {
                 cn(
                   'rounded-md px-3 py-2 text-sm font-medium hover:bg-sidebar-accent',
                   isActive && 'bg-sidebar-accent text-primary',
-                  
                 )
               }
             >

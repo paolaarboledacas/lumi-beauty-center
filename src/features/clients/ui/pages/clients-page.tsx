@@ -42,13 +42,18 @@ export function ClientsPage() {
 
       {/* si nadie coincide, un mensaje amable */}
       {filteredClients.length === 0 && (
-        <p className="text-sm text-muted-foreground">No hay clientas que coincidan con "{search}".</p>
+        <p className="text-sm text-muted-foreground">
+          No hay clientas que coincidan con "{search}".
+        </p>
       )}
       {/* una tarjeta por cada clienta */}
       <ul className="grid gap-3">
-              {filteredClients.map((client) => (
+        {filteredClients.map((client) => (
           <li key={client.id}>
-            <Link to={`/clients/${client.id}`} className="flex flex-col gap-2 rounded-xl border p-4">
+            <Link
+              to={`/clients/${client.id}`}
+              className="flex flex-col gap-2 rounded-xl border p-4"
+            >
               <span className="font-semibold">{client.fullName}</span>
               <span className="text-sm text-muted-foreground">
                 {client.phone} · Piel {SKIN_TYPE_LABELS[client.skinType]}
