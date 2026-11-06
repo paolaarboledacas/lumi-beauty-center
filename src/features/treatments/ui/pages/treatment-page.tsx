@@ -14,9 +14,9 @@ export function TreatmentsPage() {
   return (
     <main className="flex flex-col gap-4 p-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-semibold">Treatments</h1>
+        <h1 className="text-3xl font-semibold">Tratamientos</h1>
         <Link to="/treatments/new" className="text-sm font-semibold text-primary">
-          + New treatment
+          + Nuevo tratamiento
         </Link>
       </div>
       <div className="grid gap-4">

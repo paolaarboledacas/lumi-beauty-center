@@ -4,7 +4,10 @@ import { cn } from '@/lib/utils'
 
 import { ThemeToggle } from './theme-toggle'
 
-const LINKS = [{ to: '/treatments', label: 'Treatments' }]
+const LINKS = [
+  { to: '/treatments', label: 'Tratamientos' },
+  { to: '/clients', label: 'Clientas' },
+]
 
 export function AppLayout() {
   return (

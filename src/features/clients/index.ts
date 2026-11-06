@@ -1,0 +1,4 @@
+export { ClientsPage } from './ui/pages/clients-page'
+export { NewClientPage } from './ui/pages/new-client-page'
+export { ClientDetailPage } from './ui/pages/client-detail-page'
+export { EditClientPage } from './ui/pages/edit-client-page'
