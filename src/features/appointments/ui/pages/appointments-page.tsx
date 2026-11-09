@@ -8,7 +8,9 @@ import { Button } from '@/components/ui/button'
 import { useClients } from '@/features/clients'
 import { useTreatments } from '@/features/treatments'
 
-import { STATUS_LABELS, STATUS_STYLES } from '../appointment-labels'
+import { STATUS_ACTIONS, STATUS_LABELS, STATUS_STYLES } from '../appointment-labels'
+import { getNextStatuses } from '../../domain/appointment-rules'
+import { useUpdateAppointment } from '../hooks/use-update-appointment'
 import { useAppointments } from '../hooks/use-appointments'
 
 export function AppointmentsPage() {
@@ -18,7 +20,8 @@ export function AppointmentsPage() {
   const { data: appointments = [], isLoading } = useAppointments()
   const { data: clients = [] } = useClients()
   const { data: treatments = [] } = useTreatments()
-
+  // el hook que cambia el estado de una cita //
+  const updateMutation = useUpdateAppointment()
   // portero: cargando //
   if (isLoading) return <p className="p-6">Cargando...</p>
 
@@ -48,7 +51,9 @@ export function AppointmentsPage() {
         <Button variant="outline" onClick={() => setDay(addDays(day, 1))}>
           Siguiente →
         </Button>
-        <span className="font-medium capitalize">{format(day, "EEEE d 'de' MMMM", { locale: es })}</span>
+        <span className="font-medium first-letter:uppercase">
+          {format(day, "EEEE d 'de' MMMM", { locale: es })}
+        </span>
       </div>
 
       {/* si no hay citas ese dia */}
@@ -61,20 +66,45 @@ export function AppointmentsPage() {
         {dayAppointments.map((appointment) => {
           // busca el nombre de la clienta y del tratamiento por su id //
           const client = clients.find((client) => client.id === appointment.clientId)
+
           const treatment = treatments.find((treatment) => treatment.id === appointment.treatmentId)
 
           return (
-            <li key={appointment.id} className="flex items-center justify-between gap-4 rounded-xl border p-4">
+            <li
+              key={appointment.id}
+              className="flex items-center justify-between gap-4 rounded-xl border p-4"
+            >
               <div className="flex flex-col">
                 <span className="font-semibold">
-                  {format(new Date(appointment.startsAt), 'HH:mm')} – {format(new Date(appointment.endsAt), 'HH:mm')}
+                  {format(new Date(appointment.startsAt), 'HH:mm')} –{' '}
+                  {format(new Date(appointment.endsAt), 'HH:mm')}
                 </span>
                 <span>{client?.fullName ?? 'Clienta no encontrada'}</span>
-                <span className="text-sm text-muted-foreground">{treatment?.name ?? 'Tratamiento no encontrado'}</span>
+                <span className="text-sm text-muted-foreground">
+                  {treatment?.name ?? 'Tratamiento no encontrado'}
+                </span>
               </div>
-              <Badge variant="outline" className={STATUS_STYLES[appointment.status]}>
-                {STATUS_LABELS[appointment.status]}
-              </Badge>
+              <div className="flex flex-col items-end gap-2">
+                {/* el estado actual con su color */}
+                <Badge variant="outline" className={STATUS_STYLES[appointment.status]}>
+                  {STATUS_LABELS[appointment.status]}
+                </Badge>
+
+                {/* solo los botones de los estados permitidos */}
+                <div className="flex flex-wrap justify-end gap-2">
+                  {getNextStatuses(appointment.status).map((status) => (
+                    <Button
+                      key={status}
+                      size="sm"
+                      variant="outline"
+                      disabled={updateMutation.isPending}
+                      onClick={() => updateMutation.mutate({ ...appointment, status })}
+                    >
+                      {STATUS_ACTIONS[status]}
+                    </Button>
+                  ))}
+                </div>
+              </div>
             </li>
           )
         })}
