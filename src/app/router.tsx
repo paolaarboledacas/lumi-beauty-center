@@ -3,12 +3,14 @@ import { AppLayout } from '@/components/common/app-layout'
 import { TreatmentsPage } from '@/features/treatments'
 import { TreatmentDetailPage } from '@/features/treatments'
 import { ClientDetailPage, ClientsPage, EditClientPage, NewClientPage } from '@/features/clients'
+import { AppointmentsPage } from '@/features/appointments'
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <AppLayout />,
     children: [
+      { path: 'appointments', element: <AppointmentsPage /> },
       { path: 'clients', element: <ClientsPage /> },
       { path: 'clients/new', element: <NewClientPage /> },
       { path: 'clients/:id', element: <ClientDetailPage /> },

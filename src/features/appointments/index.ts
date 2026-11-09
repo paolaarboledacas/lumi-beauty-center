@@ -1,0 +1,1 @@
+export { AppointmentsPage } from './ui/pages/appointments-page'
