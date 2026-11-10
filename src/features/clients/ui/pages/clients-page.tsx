@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 
 import { Badge } from '@/components/ui/badge'
 import { ALERT_LABELS, SKIN_TYPE_LABELS } from '../client-labels'
+import { SORT_STRATEGIES, type SortKey } from '../client-sort-strategies'
 import { useClients } from '../hooks/use-clients'
 
 export function ClientsPage() {
@@ -11,6 +12,9 @@ export function ClientsPage() {
 
   // memoria: lo que escriben en el buscador, empieza vacio //
   const [search, setSearch] = useState('')
+  // memoria: como se esta ordenando, empieza de la A a la Z //
+  const [sortKey, setSortKey] = useState<SortKey>('name-asc')
+
   // porteros: cargando y error //
   if (isLoading) return <p className="p-6">Cargando...</p>
   if (error) return <p className="p-6 text-destructive">{error.message}</p>
@@ -22,6 +26,10 @@ export function ClientsPage() {
   const filteredClients = clients.filter(
     (client) => client.fullName.toLowerCase().includes(text) || client.phone.includes(search),
   )
+
+  // usa la estrategia elegida para ordenar una copia de la lista //
+  const sortedClients = [...filteredClients].sort(SORT_STRATEGIES[sortKey])
+
   return (
     <main className="flex flex-col gap-4 p-6">
       {/* titulo y enlace para crear una nueva */}
@@ -40,6 +48,18 @@ export function ClientsPage() {
         className="rounded-md border px-3 py-2"
       />
 
+      {/* selector para elegir como ordenar */}
+      <select
+        value={sortKey}
+        onChange={(event) => setSortKey(event.target.value as SortKey)}
+        className="w-fit rounded-md border px-3 py-2 text-sm"
+      >
+        <option value="name-asc">Nombre A → Z</option>
+        <option value="name-desc">Nombre Z → A</option>
+        <option value="skin-type">Tipo de piel</option>
+        <option value="most-alerts">Más alertas primero</option>
+      </select>
+
       {/* si nadie coincide, un mensaje amable */}
       {filteredClients.length === 0 && (
         <p className="text-sm text-muted-foreground">
@@ -48,7 +68,7 @@ export function ClientsPage() {
       )}
       {/* una tarjeta por cada clienta */}
       <ul className="grid gap-3">
-        {filteredClients.map((client) => (
+        {sortedClients.map((client) => (
           <li key={client.id}>
             <Link
               to={`/clients/${client.id}`}
