@@ -1,13 +1,12 @@
 ﻿import { Link } from 'react-router'
-
+import { ListSkeleton } from '@/components/common/list-skeleton'
 import { TreatmentCard } from '../components/treatment-card'
 import { useTreatments } from '../hooks/use-treatments'
 
 export function TreatmentsPage() {
   const { data: treatments = [], isLoading, error } = useTreatments()
 
-  if (isLoading) return <p className="p-6">Cargando...</p>
-
+   if (isLoading) return <ListSkeleton />
   // error is now an Error object
   if (error) return <p className="p-6 text-destructive">{error.message}</p>
 

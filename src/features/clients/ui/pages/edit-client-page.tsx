@@ -4,6 +4,7 @@ import { toast } from 'sonner'
 import { ClientForm } from '../components/client-form'
 import { useClient } from '../hooks/use-clients'
 import { useUpdateClient } from '../hooks/use-update-client'
+import { ListSkeleton } from '@/components/common/list-skeleton'
 
 export function EditClientPage() {
   // lee el id de la direccion, por ejemplo /clients/c4/edit //
@@ -16,7 +17,7 @@ export function EditClientPage() {
   const navigate = useNavigate()
 
   // porteros: cargando y no encontrada //
-  if (isLoading) return <p className="p-6">Cargando...</p>
+     if (isLoading) return <ListSkeleton />
   if (!client) return <p className="p-6">No encontramos esta clienta.</p>
 
   return (

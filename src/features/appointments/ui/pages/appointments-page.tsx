@@ -3,7 +3,7 @@ import { es } from 'date-fns/locale'
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { toast } from 'sonner'
-
+import { ListSkeleton } from '@/components/common/list-skeleton'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useClients } from '@/features/clients'
@@ -24,8 +24,7 @@ export function AppointmentsPage() {
   // el hook que cambia el estado de una cita //
   const updateMutation = useUpdateAppointment()
   // portero: cargando //
-  if (isLoading) return <p className="p-6">Cargando...</p>
-
+   if (isLoading) return <ListSkeleton />
   // solo las citas de ese dia, ordenadas por hora //
   const dayAppointments = appointments
     .filter((appointment) => isSameDay(new Date(appointment.startsAt), day))

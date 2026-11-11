@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge'
 import { ALERT_LABELS, SKIN_TYPE_LABELS } from '../client-labels'
 import { SORT_STRATEGIES, type SortKey } from '../client-sort-strategies'
 import { useClients } from '../hooks/use-clients'
+import { ListSkeleton } from '@/components/common/list-skeleton'
 
 export function ClientsPage() {
   // pide todas las clientas //
@@ -16,8 +17,8 @@ export function ClientsPage() {
   const [sortKey, setSortKey] = useState<SortKey>('name-asc')
 
   // porteros: cargando y error //
-  if (isLoading) return <p className="p-6">Cargando...</p>
-  if (error) return <p className="p-6 text-destructive">{error.message}</p>
+   if (isLoading) return <ListSkeleton />  
+   if (error) return <p className="p-6 text-destructive">{error.message}</p>
 
   // el texto en minuscula, para que no importen las mayusculas //
   const text = search.toLowerCase()
