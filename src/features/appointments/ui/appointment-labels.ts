@@ -17,3 +17,11 @@ export const STATUS_STYLES: Record<AppointmentStatus, string> = {
   cancelled: 'bg-destructive/10 text-destructive',
   'no-show': 'bg-destructive/10 text-destructive',
 }
+// texto del boton para pasar a cada estado //
+export const STATUS_ACTIONS: Record<AppointmentStatus, string> = {
+  scheduled: 'Agendar',
+  confirmed: 'Confirmar',
+  completed: 'Completar',
+  cancelled: 'Cancelar',
+  'no-show': 'No asistió',
+}

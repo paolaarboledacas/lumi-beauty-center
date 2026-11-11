@@ -2,7 +2,10 @@
 import type { AppointmentRepository } from '../domain/appointment-repository'
 
 // accion: eliminar una cita por su id //
-export async function removeAppointment(repository: AppointmentRepository, id: string): Promise<void> {
+export async function removeAppointment(
+  repository: AppointmentRepository,
+  id: string,
+): Promise<void> {
   return repository.remove(id)
 }
 
