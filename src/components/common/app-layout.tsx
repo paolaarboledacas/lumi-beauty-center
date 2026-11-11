@@ -7,6 +7,7 @@ import { ThemeToggle } from './theme-toggle'
 const LINKS = [
   { to: '/treatments', label: 'Tratamientos' },
   { to: '/clients', label: 'Clientas' },
+  { to: '/appointments', label: 'Agenda' },
 ]
 
 export function AppLayout() {
