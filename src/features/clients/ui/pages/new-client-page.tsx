@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router'
-
+import { toast } from 'sonner'
 import { ClientForm } from '../components/client-form'
 import { useCreateClient } from '../hooks/use-create-client'
 
@@ -16,8 +16,16 @@ export function NewClientPage() {
         // mientras guarda, el boton se apaga //
         isSaving={createMutation.isPending}
         // cuando los datos estan bien: guarda y vuelve a la lista //
-        onSubmit={(values) =>
-          createMutation.mutate(values, { onSuccess: () => navigate('/clients') })
+                onSubmit={(values) =>
+          createMutation.mutate(values, {
+            // si sale bien: mensaje verde y vuelve a la lista //
+            onSuccess: () => {
+              toast.success('Clienta registrada')
+              navigate('/clients')
+            },
+            // si sale mal: mensaje rojo //
+            onError: () => toast.error('No se pudo guardar la clienta'),
+          })
         }
       />
     </main>

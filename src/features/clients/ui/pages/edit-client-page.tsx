@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from 'react-router'
+import { toast } from 'sonner'
 
 import { ClientForm } from '../components/client-form'
 import { useClient } from '../hooks/use-clients'
@@ -29,7 +30,15 @@ export function EditClientPage() {
         onSubmit={(values) =>
           updateMutation.mutate(
             { ...values, id: client.id },
-            { onSuccess: () => navigate(`/clients/${client.id}`) },
+            {
+              // si sale bien: mensaje verde y vuelve a la ficha //
+              onSuccess: () => {
+                toast.success('Clienta actualizada')
+                navigate(`/clients/${client.id}`)
+              },
+              // si sale mal: mensaje rojo //
+              onError: () => toast.error('No se pudo actualizar la clienta'),
+            },
           )
         }
       />

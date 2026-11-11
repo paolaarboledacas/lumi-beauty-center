@@ -1,6 +1,5 @@
 import { Link, useNavigate, useParams } from 'react-router'
 import { Badge } from '@/components/ui/badge'
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,6 +15,7 @@ import { Button } from '@/components/ui/button'
 import { useRemoveClient } from '../hooks/use-remove-client'
 import { ALERT_LABELS, SKIN_TYPE_LABELS } from '../client-labels'
 import { useClient } from '../hooks/use-clients'
+import { toast } from 'sonner'
 
 export function ClientDetailPage() {
   // lee el id de la direccion, por ejemplo /clients/c4 //
@@ -105,11 +105,20 @@ export function ClientDetailPage() {
               <AlertDialogAction
                 variant="destructive"
                 disabled={removeMutation.isPending}
-                onClick={() =>
-                  removeMutation.mutate(client.id, { onSuccess: () => navigate('/clients') })
+                                onClick={() =>
+                  removeMutation.mutate(client.id, {
+                    // si sale bien: mensaje verde y vuelve a la lista //
+                    onSuccess: () => {
+                      toast.success('Clienta eliminada')
+                      navigate('/clients')
+                    },
+                    // si sale mal: mensaje rojo //
+                    onError: () => toast.error('No se pudo eliminar la clienta'),
+                  })
                 }
               >
                 {removeMutation.isPending ? 'Eliminando...' : 'Eliminar'}
+                
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

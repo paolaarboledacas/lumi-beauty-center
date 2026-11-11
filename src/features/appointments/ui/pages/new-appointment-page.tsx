@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -93,7 +94,15 @@ export function NewAppointmentPage() {
         status: 'scheduled',
         notes: values.notes,
       },
-      { onSuccess: () => navigate('/appointments') },
+      {
+        // si sale bien: mensaje verde y vuelve a la agenda //
+        onSuccess: () => {
+          toast.success('Cita agendada')
+          navigate('/appointments')
+        },
+        // si sale mal: mensaje rojo //
+        onError: () => toast.error('No se pudo agendar la cita'),
+      },
     )
   }
 

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router'
+import { toast } from 'sonner'
 
 import { TreatmentForm } from '../components/treatment-form'
 import { useCreateTreatment } from '../hooks/use-create-treatment'
@@ -13,7 +14,15 @@ export function NewTreatmentPage() {
       <TreatmentForm
         isSaving={createMutation.isPending}
         onSubmit={(values) =>
-          createMutation.mutate(values, { onSuccess: () => navigate('/treatments') })
+          createMutation.mutate(values, {
+            // si sale bien: mensaje verde y vuelve a la lista //
+            onSuccess: () => {
+              toast.success('Tratamiento creado')
+              navigate('/treatments')
+            },
+            // si sale mal: mensaje rojo //
+            onError: () => toast.error('No se pudo guardar el tratamiento'),
+          })
         }
       />
     </main>

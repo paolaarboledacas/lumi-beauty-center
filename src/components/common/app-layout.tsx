@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router'
-
+import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 
 import { ThemeToggle } from './theme-toggle'
@@ -34,6 +34,8 @@ export function AppLayout() {
         <ThemeToggle />
       </aside>
       <Outlet />
+      {/* el lugar donde aparecen los mensajes (toasts) */}
+      <Toaster />
     </div>
   )
 }

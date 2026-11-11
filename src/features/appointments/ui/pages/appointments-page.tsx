@@ -2,6 +2,7 @@ import { addDays, format, isSameDay } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { useState } from 'react'
 import { Link } from 'react-router'
+import { toast } from 'sonner'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -98,7 +99,16 @@ export function AppointmentsPage() {
                       size="sm"
                       variant="outline"
                       disabled={updateMutation.isPending}
-                      onClick={() => updateMutation.mutate({ ...appointment, status })}
+                      onClick={() =>
+                        updateMutation.mutate(
+                          { ...appointment, status },
+                          {
+                            // mensaje verde o rojo segun como salga //
+                            onSuccess: () => toast.success('Estado actualizado'),
+                            onError: () => toast.error('No se pudo cambiar el estado'),
+                          },
+                        )
+                      }
                     >
                       {STATUS_ACTIONS[status]}
                     </Button>
