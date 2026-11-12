@@ -8,6 +8,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useClients } from '@/features/clients'
 import { useTreatments } from '@/features/treatments'
+import { CalendarX } from 'lucide-react'
+import { EmptyState } from '@/components/common/empty-state'
 
 import { STATUS_ACTIONS, STATUS_LABELS, STATUS_STYLES } from '../appointment-labels'
 import { getNextStatuses } from '../../domain/appointment-rules'
@@ -24,7 +26,7 @@ export function AppointmentsPage() {
   // el hook que cambia el estado de una cita //
   const updateMutation = useUpdateAppointment()
   // portero: cargando //
-   if (isLoading) return <ListSkeleton />
+  if (isLoading) return <ListSkeleton />
   // solo las citas de ese dia, ordenadas por hora //
   const dayAppointments = appointments
     .filter((appointment) => isSameDay(new Date(appointment.startsAt), day))
@@ -58,7 +60,13 @@ export function AppointmentsPage() {
 
       {/* si no hay citas ese dia */}
       {dayAppointments.length === 0 && (
-        <p className="text-sm text-muted-foreground">No hay citas este día.</p>
+        <EmptyState
+          icon={CalendarX}
+          title="No hay citas este día"
+          description="Agenda una cita o cambia de día con los botones."
+          actionLabel="+ Agendar cita"
+          actionTo="/appointments/new"
+        />
       )}
 
       {/* una fila por cada cita */}

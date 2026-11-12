@@ -17,7 +17,7 @@ export function EditClientPage() {
   const navigate = useNavigate()
 
   // porteros: cargando y no encontrada //
-     if (isLoading) return <ListSkeleton />
+  if (isLoading) return <ListSkeleton />
   if (!client) return <p className="p-6">No encontramos esta clienta.</p>
 
   return (

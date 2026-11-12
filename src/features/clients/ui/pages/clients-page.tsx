@@ -6,7 +6,8 @@ import { ALERT_LABELS, SKIN_TYPE_LABELS } from '../client-labels'
 import { SORT_STRATEGIES, type SortKey } from '../client-sort-strategies'
 import { useClients } from '../hooks/use-clients'
 import { ListSkeleton } from '@/components/common/list-skeleton'
-
+import { Users } from 'lucide-react'
+import { EmptyState } from '@/components/common/empty-state'
 export function ClientsPage() {
   // pide todas las clientas //
   const { data: clients = [], isLoading, error } = useClients()
@@ -17,8 +18,23 @@ export function ClientsPage() {
   const [sortKey, setSortKey] = useState<SortKey>('name-asc')
 
   // porteros: cargando y error //
-   if (isLoading) return <ListSkeleton />  
-   if (error) return <p className="p-6 text-destructive">{error.message}</p>
+  if (isLoading) return <ListSkeleton />
+  if (error) return <p className="p-6 text-destructive">{error.message}</p>
+  // si no hay ninguna clienta, un mensaje amable //
+  if (clients.length === 0) {
+    return (
+      <main className="flex flex-col gap-4 p-6">
+        <h1 className="text-3xl font-semibold">Clientas</h1>
+        <EmptyState
+          icon={Users}
+          title="Todavía no hay clientas"
+          description="Registra a tu primera clienta para empezar a llevar sus fichas."
+          actionLabel="+ Registrar clienta"
+          actionTo="/clients/new"
+        />
+      </main>
+    )
+  }
 
   // el texto en minuscula, para que no importen las mayusculas //
   const text = search.toLowerCase()

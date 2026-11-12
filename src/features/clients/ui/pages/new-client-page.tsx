@@ -16,7 +16,7 @@ export function NewClientPage() {
         // mientras guarda, el boton se apaga //
         isSaving={createMutation.isPending}
         // cuando los datos estan bien: guarda y vuelve a la lista //
-                onSubmit={(values) =>
+        onSubmit={(values) =>
           createMutation.mutate(values, {
             // si sale bien: mensaje verde y vuelve a la lista //
             onSuccess: () => {

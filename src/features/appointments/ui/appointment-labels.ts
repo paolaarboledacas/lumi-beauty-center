@@ -25,3 +25,12 @@ export const STATUS_ACTIONS: Record<AppointmentStatus, string> = {
   cancelled: 'Cancelar',
   'no-show': 'No asistió',
 }
+
+// color de la barra de la izquierda de cada cita //
+export const STATUS_BORDERS: Record<AppointmentStatus, string> = {
+  scheduled: 'border-l-warning',
+  confirmed: 'border-l-success',
+  completed: 'border-l-muted-foreground',
+  cancelled: 'border-l-destructive',
+  'no-show': 'border-l-destructive',
+}

@@ -10,7 +10,7 @@ export function NewTreatmentPage() {
 
   return (
     <main className="mx-auto max-w-3xl p-6">
-      <h1 className="mb-6 text-3xl font-semibold">New treatment</h1>
+      <h1 className="mb-6 text-3xl font-semibold">Nuevo tratamiento</h1>
       <TreatmentForm
         isSaving={createMutation.isPending}
         onSubmit={(values) =>

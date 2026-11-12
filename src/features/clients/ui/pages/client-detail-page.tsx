@@ -105,7 +105,7 @@ export function ClientDetailPage() {
               <AlertDialogAction
                 variant="destructive"
                 disabled={removeMutation.isPending}
-                                onClick={() =>
+                onClick={() =>
                   removeMutation.mutate(client.id, {
                     // si sale bien: mensaje verde y vuelve a la lista //
                     onSuccess: () => {
@@ -118,7 +118,6 @@ export function ClientDetailPage() {
                 }
               >
                 {removeMutation.isPending ? 'Eliminando...' : 'Eliminar'}
-                
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
