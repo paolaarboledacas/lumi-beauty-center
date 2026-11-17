@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-heading: 'Mona Sans Variable', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
-  --font-heading--font-variation-settings: 'wdth' 112;
-  --font-sans: 'Mona Sans Variable', 'Helvetica Neue', Helvetica, Arial, system-ui, sans-serif;
+  /* titulos: letra elegante. Texto: letra facil de leer */
+  --font-heading: 'Playfair Display Variable', Georgia, serif;
+  --font-sans: 'DM Sans Variable', 'Helvetica Neue', Arial, system-ui, sans-serif;
   --font-mono: 'SF Mono', ui-monospace, Menlo, 'Cascadia Code', Consolas, monospace;
   --color-brand: var(--brand);
   --color-brand-foreground: var(--brand-foreground);

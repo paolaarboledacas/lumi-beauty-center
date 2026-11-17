@@ -17,7 +17,11 @@ export function countPendingAppointments(appointments: Appointment[]): number {
 }
 
 // TARJETA 3: suma de los precios de las citas completadas esta semana //
-export function sumWeekIncome(appointments: Appointment[], treatments: Treatment[], today: Date): number {
+export function sumWeekIncome(
+  appointments: Appointment[],
+  treatments: Treatment[],
+  today: Date,
+): number {
   return appointments
     .filter(
       (appointment) =>
@@ -39,16 +43,20 @@ export function getTopTreatments(appointments: Appointment[], treatments: Treatm
     return result
   }, {})
 
-  return Object.entries(counts)
-    // de mayor a menor cantidad //
-    .sort((a, b) => b[1] - a[1])
-    // solo los 3 primeros //
-    .slice(0, 3)
-    // cambia el id por el nombre del tratamiento //
-    .map(([treatmentId, count]) => ({
-      name: treatments.find((treatment) => treatment.id === treatmentId)?.name ?? 'Tratamiento eliminado',
-      count,
-    }))
+  return (
+    Object.entries(counts)
+      // de mayor a menor cantidad //
+      .sort((a, b) => b[1] - a[1])
+      // solo los 3 primeros //
+      .slice(0, 3)
+      // cambia el id por el nombre del tratamiento //
+      .map(([treatmentId, count]) => ({
+        name:
+          treatments.find((treatment) => treatment.id === treatmentId)?.name ??
+          'Tratamiento eliminado',
+        count,
+      }))
+  )
 }
 
 /*

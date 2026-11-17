@@ -55,7 +55,7 @@ export const treatmentsMock: Treatment[] = [
     durationMinutes: 60,
     price: 220000,
   },
-   {
+  {
     id: '7',
     name: 'Depilacion laser ',
     category: 'hair-removal',
@@ -64,13 +64,13 @@ export const treatmentsMock: Treatment[] = [
     durationMinutes: 60,
     price: 50000,
   },
-   {
+  {
     id: '8',
     name: 'Manos y pies  ',
     category: 'hands-and-feet',
     description:
-      'Manicure y Pedicure con productos de alta calidad y tecnicas especializadas para cuidar y embellecer tus manos y pies .', 
+      'Manicure y Pedicure con productos de alta calidad y tecnicas especializadas para cuidar y embellecer tus manos y pies .',
     durationMinutes: 60,
-    price: 100.000,
+    price: 100.0,
   },
 ]
