@@ -7,7 +7,9 @@ const STORAGE_KEY = 'lumi-appointments'
 
 // crea el lugar donde se guardan las citas (localStorage) //
 // seed son las citas de ejemplo, se usan si no hay nada guardado //
-export function createLocalStorageAppointmentRepository(seed: Appointment[]): AppointmentRepository {
+export function createLocalStorageAppointmentRepository(
+  seed: Appointment[],
+): AppointmentRepository {
   // lee las citas guardadas //
   function read(): Appointment[] {
     const saved = localStorage.getItem(STORAGE_KEY)

@@ -1,10 +1,11 @@
 import { NavLink, Outlet } from 'react-router'
-
+import { Toaster } from '@/components/ui/sonner'
 import { cn } from '@/lib/utils'
 
 import { ThemeToggle } from './theme-toggle'
 
 const LINKS = [
+  { to: '/', label: 'Inicio' },
   { to: '/treatments', label: 'Tratamientos' },
   { to: '/clients', label: 'Clientas' },
   { to: '/appointments', label: 'Agenda' },
@@ -20,6 +21,8 @@ export function AppLayout() {
             <NavLink
               key={link.to}
               to={link.to}
+              // Inicio solo se resalta cuando estas exactamente en / //
+              end={link.to === '/'}
               className={({ isActive }) =>
                 cn(
                   'rounded-md px-3 py-2 text-sm font-medium hover:bg-sidebar-accent',
@@ -34,6 +37,8 @@ export function AppLayout() {
         <ThemeToggle />
       </aside>
       <Outlet />
+      {/* el lugar donde aparecen los mensajes (toasts) */}
+      <Toaster />
     </div>
   )
 }

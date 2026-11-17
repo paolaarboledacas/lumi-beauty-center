@@ -17,3 +17,20 @@ export const STATUS_STYLES: Record<AppointmentStatus, string> = {
   cancelled: 'bg-destructive/10 text-destructive',
   'no-show': 'bg-destructive/10 text-destructive',
 }
+// texto del boton para pasar a cada estado //
+export const STATUS_ACTIONS: Record<AppointmentStatus, string> = {
+  scheduled: 'Agendar',
+  confirmed: 'Confirmar',
+  completed: 'Completar',
+  cancelled: 'Cancelar',
+  'no-show': 'No asistió',
+}
+
+// color de la barra de la izquierda de cada cita //
+export const STATUS_BORDERS: Record<AppointmentStatus, string> = {
+  scheduled: 'border-l-warning',
+  confirmed: 'border-l-success',
+  completed: 'border-l-muted-foreground',
+  cancelled: 'border-l-destructive',
+  'no-show': 'border-l-destructive',
+}

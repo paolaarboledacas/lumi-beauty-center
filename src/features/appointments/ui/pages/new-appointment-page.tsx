@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { format } from 'date-fns'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { Button } from '@/components/ui/button'
@@ -54,7 +55,10 @@ export function NewAppointmentPage() {
   const time = watch('time')
   const endPreview =
     selectedTreatment && date && time
-      ? format(calculateEndsAt(new Date(`${date}T${time}`), selectedTreatment.durationMinutes), 'HH:mm')
+      ? format(
+          calculateEndsAt(new Date(`${date}T${time}`), selectedTreatment.durationMinutes),
+          'HH:mm',
+        )
       : null
 
   // que pasa al presionar Agendar //
@@ -90,7 +94,15 @@ export function NewAppointmentPage() {
         status: 'scheduled',
         notes: values.notes,
       },
-      { onSuccess: () => navigate('/appointments') },
+      {
+        // si sale bien: mensaje verde y vuelve a la agenda //
+        onSuccess: () => {
+          toast.success('Cita agendada')
+          navigate('/appointments')
+        },
+        // si sale mal: mensaje rojo //
+        onError: () => toast.error('No se pudo agendar la cita'),
+      },
     )
   }
 
@@ -113,7 +125,11 @@ export function NewAppointmentPage() {
 
         {/* tratamiento: un menu con todos los tratamientos */}
         <label htmlFor="treatmentId">Tratamiento</label>
-        <select id="treatmentId" className="rounded-md border px-3 py-2" {...register('treatmentId')}>
+        <select
+          id="treatmentId"
+          className="rounded-md border px-3 py-2"
+          {...register('treatmentId')}
+        >
           <option value="">Elige un tratamiento</option>
           {treatments.map((treatment) => (
             <option key={treatment.id} value={treatment.id}>
@@ -127,12 +143,22 @@ export function NewAppointmentPage() {
 
         {/* fecha: el navegador muestra un calendario */}
         <label htmlFor="date">Fecha</label>
-        <input id="date" type="date" className="rounded-md border px-3 py-2" {...register('date')} />
+        <input
+          id="date"
+          type="date"
+          className="rounded-md border px-3 py-2"
+          {...register('date')}
+        />
         {errors.date && <p className="text-sm text-destructive">{errors.date.message}</p>}
 
         {/* hora de inicio: el navegador muestra un reloj */}
         <label htmlFor="time">Hora de inicio</label>
-        <input id="time" type="time" className="rounded-md border px-3 py-2" {...register('time')} />
+        <input
+          id="time"
+          type="time"
+          className="rounded-md border px-3 py-2"
+          {...register('time')}
+        />
         {errors.time && <p className="text-sm text-destructive">{errors.time.message}</p>}
 
         {/* hora de fin: no se escribe, se calcula */}
@@ -140,7 +166,12 @@ export function NewAppointmentPage() {
 
         {/* notas opcionales */}
         <label htmlFor="notes">Notas (opcional)</label>
-        <textarea id="notes" rows={3} className="rounded-md border px-3 py-2" {...register('notes')} />
+        <textarea
+          id="notes"
+          rows={3}
+          className="rounded-md border px-3 py-2"
+          {...register('notes')}
+        />
 
         {/* mientras guarda se apaga, para no agendar dos veces */}
         <Button type="submit" disabled={createMutation.isPending}>

@@ -2,3 +2,4 @@
 export { TreatmentDetailPage } from './ui/pages/treatment-detail-page'
 export { NewTreatmentPage } from './ui/pages/new-treatment-page'
 export { useTreatments } from './ui/hooks/use-treatments'
+export type { Treatment } from './domain/treatment'
